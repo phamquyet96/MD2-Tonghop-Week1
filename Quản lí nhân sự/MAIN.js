@@ -1,0 +1,16 @@
+"use strict";
+exports.__esModule = true;
+var HumanManager_1 = require("./HumanManager");
+var HumanResources_1 = require("./HumanResources");
+var employee1 = new HumanResources_1.Employee('Nguyen', "Hung", "30/5", "ha noi", "staff");
+var employee2 = new HumanResources_1.Employee('Mai', "Huong", "10/10", "nam dinh", "staff");
+var employee3 = new HumanResources_1.Employee('Pham', "Quyet", "14/12", "nam dinh", "manager");
+var employee4 = new HumanResources_1.Employee('Do', "Trung", "3/7", "thai binh", "leader");
+var manager = new HumanManager_1.EmployeeManager();
+manager.add(employee1);
+manager.add(employee2);
+manager.add(employee3);
+manager.add(employee4);
+console.table(manager.display());
+manager.Delete("Mai", "Huong", "3/7");
+console.table(manager.display());
