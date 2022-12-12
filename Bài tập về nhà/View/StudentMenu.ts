@@ -1,35 +1,94 @@
 import {User} from '../Model/User'
 import {Student} from "../Model/Student"
-import {StudentManager} from "../Controller/StudentManager";
+import {StudentManager} from "../Controller/StudentManager"
 
-let student= new Student("Quyet","phamquyet9688","123","Namdinh","gioi",6.5,1);
-let student1= new Student("Quyet1","phamquyet96881","1234","Namdinh1","gioi1",7,2);
-let student2= new Student("Quyet2","phamquyet96882","12345","Namdinh22","gioi21",8,3)
-let student3= new Student("Quyet3","phamquyet96883","123454","Namdinh23","gioi22",8.5,4)
-let student4= new Student("Quyet4","phamquyet96884","123455","Namdinh24","gioi23",7,5)
-let student5= new Student("Quyet5","phamquyet96885","123456","Namdinh25","gioi24",5,6)
+const readlineSync= require("readline-sync")
 
-let studentManager = new StudentManager();
+export class StudentMenu {
+    StudentManager: StudentManager;
+    private menu = `
+    1.Show student list
+    2.Create a new student
+    3.Update student
+    4.Delete student
+    5.Statistic student
+    6.Exit
+    `;
 
-studentManager.add(student);
-studentManager.add(student1);
-studentManager.add(student2);
-studentManager.add(student3);
-studentManager.add(student4);
-studentManager.add(student5);
-// console.table(studentManager.display());
-//
-// studentManager.remove(1)
-// console.table(studentManager.display());
-//
-// studentManager.edit(2,student2);
-// console.table(studentManager.display());
+    constructor() {
+        this.StudentManager = new StudentManager();
+    }
 
-// studentManager.remove(2);
-// console.table(studentManager.display());
+    public menuManager() {
+        let isLoop = true;
+        while (isLoop) {
+            console.log(this.menu);
+            let choice;
+            do {
+                choice = +readlineSync.question(`Enter a choice:`);
+                if (choice < 1 || choice > 6) {
+                    console.log(`Wrong choice.Please try again!`);
+                }
+            } while (choice < 1 || choice > 6)
+            switch (choice) {
+                case 1: {
+                   console.table( this.StudentManager.display())
+                    break;
+                }
+                case 2: {
+                    let student = this.inputStudent(null);
+                    this.StudentManager.add(student);
+                    break;
+                }
 
-studentManager.statistic(7)
-console.table(studentManager.display());
+                case 3: {
+                    let id = +readlineSync.question("Enter code student you want to update: ");
+                    // let newStudent = this.inputStudent(id);
+                    this.StudentManager.edit(id);
+                    break;
+                }
+                case 4: {
+                    let id = +readlineSync.question("Enter code student you want to delete: ");
+                    this.StudentManager.remove(id);
+                    break;
+                }
+                case 5: {
+                    let GPA;
+                    this.StudentManager.statistic(GPA);
+                    break;
+                }
+                case 6: {
+                    isLoop = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    public inputStudent(id: number | null): Student {
+        if (id === null) {
+            let index = -1;
+            do {
+                id = +readlineSync.question('Enter code student: ')
+                index = this.StudentManager.findCode(id);
+                if (index != -1) {
+                    console.log("Code exists! Please try again ");
+                }
+            }while(index!=-1);
+        }
+        let name=readlineSync.question('Enter name student: ')
+        let email=readlineSync.question('Enter email student: ')
+        let password=readlineSync.question('Enter password student: ')
+        let address=readlineSync.question('Enter address student: ')
+        let group=readlineSync.question('Enter group student: ')
+        let GPA=+readlineSync.question('Enter GPA student: ')
+        return new Student(name, email, password, address, group, GPA,id);
+    }
+}
+
+
+
+
 
 
 

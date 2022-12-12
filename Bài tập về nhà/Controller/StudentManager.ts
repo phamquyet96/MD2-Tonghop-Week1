@@ -1,5 +1,5 @@
 import {Student} from "../Model/Student";
-
+const readlineSync= require("readline-sync")
 export class StudentManager{
     students:Student[]=[]
     // constructor(){
@@ -8,7 +8,7 @@ export class StudentManager{
     display(){
         return this.students
     }
-    add(student:Student): void{
+    add(student:Student){
         this.students.push(student)
     }
 
@@ -29,17 +29,27 @@ export class StudentManager{
             console.log("Xoa thanh cong")
         }
     }
-    edit(code:number,student:Student):void{
+    edit(code:number){
         let index = this.findCode(code);
         if(index== -1) {
             console.log("Khong co sinh vien nay")
-        }else {
-            this.students[index]=(new Student("Quyet11","phamquyet968811","12345611","Hanoi","Gioi",2.5,4));
-            console.log("Sua thanh cong")
+        }
+        // else {
+        //     this.students[index]=(new Student("Quyet11","phamquyet968811","12345611","Hanoi","Gioi",2.5,4));
+        //     console.log("Sua thanh cong")
+        // }
+        else {
+            let name=readlineSync.question('Enter name student: ')
+            let email=readlineSync.question('Enter email student: ')
+            let password=readlineSync.question('Enter password student: ')
+            let address=readlineSync.question('Enter address student: ')
+            let group=readlineSync.question('Enter group student: ')
+            let GPA=+readlineSync.question('Enter GPA student: ')
+            this.students[index] =  new Student(name,email,password,address,group,GPA,code)
         }
     }
     statistic(GPA:number):any{
-        let YEU=0;
+        let YEU=0
         let TB=0;
         let GIOI=0;
         for(let i=0;i<this.students.length;i++){

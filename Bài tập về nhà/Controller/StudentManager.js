@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.StudentManager = void 0;
 var Student_1 = require("../Model/Student");
+var readlineSync = require("readline-sync");
 var StudentManager = /** @class */ (function () {
     function StudentManager() {
         this.students = [];
@@ -33,14 +34,23 @@ var StudentManager = /** @class */ (function () {
             console.log("Xoa thanh cong");
         }
     };
-    StudentManager.prototype.edit = function (code, student) {
+    StudentManager.prototype.edit = function (code) {
         var index = this.findCode(code);
         if (index == -1) {
             console.log("Khong co sinh vien nay");
         }
+        // else {
+        //     this.students[index]=(new Student("Quyet11","phamquyet968811","12345611","Hanoi","Gioi",2.5,4));
+        //     console.log("Sua thanh cong")
+        // }
         else {
-            this.students[index] = (new Student_1.Student("Quyet11", "phamquyet968811", "12345611", "Hanoi", "Gioi", 2.5, 4));
-            console.log("Sua thanh cong");
+            var name_1 = readlineSync.question('Enter name student: ');
+            var email = readlineSync.question('Enter email student: ');
+            var password = readlineSync.question('Enter password student: ');
+            var address = readlineSync.question('Enter address student: ');
+            var group = readlineSync.question('Enter group student: ');
+            var GPA = +readlineSync.question('Enter GPA student: ');
+            this.students[index] = new Student_1.Student(name_1, email, password, address, group, GPA, code);
         }
     };
     StudentManager.prototype.statistic = function (GPA) {
@@ -58,7 +68,7 @@ var StudentManager = /** @class */ (function () {
                 GIOI++;
             }
         }
-        console.log("So hoc sinh yeu la " + YEU + "\nSo hoc sinh trung binh la " + TB + "\n So hoc sinh gioi la " + GIOI);
+        console.log("So hoc sinh yeu la " + YEU + "\nSo hoc sinh trung binh la " + TB + "\nSo hoc sinh gioi la " + GIOI);
     };
     return StudentManager;
 }());
