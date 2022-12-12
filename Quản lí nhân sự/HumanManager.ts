@@ -1,7 +1,7 @@
 import {Employee} from "./HumanResources";
 export class EmployeeManager{
     employees : Employee[]=[]
-
+    public static HumanResource=[]
     display(){
         return this.employees
     }

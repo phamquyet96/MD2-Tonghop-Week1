@@ -1,4 +1,4 @@
-export class Staff{
+export class Staffs{
     private username: string
     private password: string
     private email: string

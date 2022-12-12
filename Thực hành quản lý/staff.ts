@@ -1,4 +1,4 @@
-class Staff {
+class Staffss {
     public name: string;
     public email: string;
     public age: number;
