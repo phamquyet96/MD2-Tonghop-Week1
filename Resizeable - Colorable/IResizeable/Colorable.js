@@ -7,13 +7,13 @@ var arr = [];
 var circle = new Circle_1.Circle("tron", 20);
 var rectangle = new Rectangle_1.Rectangle(30, 40, "hinh chu nhat");
 var square = new Square_1.Square("vuong", 20, 20);
-// arr.push(circle)
-// arr.push(rectangle)
-// arr.push(square)
-// console.table(arr)
-// console.log(circle.calculateArea())
-//
-// console.log(circle.resize(Math.random()*100))
-// console.log(circle.calculateArea())
-console.log(rectangle.calculateArea());
-console.log(rectangle.resize(Math.random() * 100));
+arr.push(circle, rectangle, square);
+console.log(arr);
+var checkColorable = function () {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] instanceof Square_1.Square) {
+            console.log(arr[i].name + " co dien tich la  " + arr[i].calculateArea() + "\n" + arr[i].howtoColor());
+        }
+    }
+};
+checkColorable();
